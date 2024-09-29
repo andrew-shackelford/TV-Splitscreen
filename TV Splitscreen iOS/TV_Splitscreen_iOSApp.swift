@@ -11,7 +11,15 @@ import SwiftUI
 struct TV_Splitscreen_iOSApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().onAppear {
+                hideTitleBarOnCatalyst()
+            }
         }
+    }
+    
+    func hideTitleBarOnCatalyst() {
+#if targetEnvironment(macCatalyst)
+        (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.titlebar?.titleVisibility = .hidden
+#endif
     }
 }
